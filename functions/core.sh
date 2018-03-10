@@ -34,6 +34,10 @@ function unmount() {
 function flash() {
 	adb push $IMAGE_DIR/rootfs.img /data/
 	adb push $IMAGE_DIR/system.img /data/
+	# this makes rootfs stay read-write when it gets mounted
+	if [ "$1" == "ut" ]; then
+		adb shell touch /data/.writable_image
+	fi
 }
 
 function clean() {
